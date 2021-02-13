@@ -1,0 +1,6 @@
+spring:
+  data:
+#    db.createUser({ user:'copy',pwd:'Copy123',roles:[ { role:'dbAdmin', db: 'copyright'}]});
+#    db.grantRolesToUser("copy", [ { role:"dbOwner", db:"copyright"} ]) ;
+    mongodb:
+      uri: mongodb://copy:Copy123@org0.g-rec.site:27017/copyright
