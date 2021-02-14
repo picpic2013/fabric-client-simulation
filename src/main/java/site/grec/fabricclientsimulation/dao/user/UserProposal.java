@@ -1,7 +1,9 @@
 package site.grec.fabricclientsimulation.dao.user;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import site.grec.fabricclientsimulation.utils.hash.HashFunction;
+import site.grec.fabricclientsimulation.utils.hash.InnerHashFunction;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +11,9 @@ import java.util.Objects;
 
 @Data
 public class UserProposal {
+    @Autowired
+    private HashFunction hashFunction;
+
     private String name;
     private HashMap<String, Date> status;
 
@@ -28,7 +33,7 @@ public class UserProposal {
 
     @Override
     public int hashCode() {
-        return HashFunction.getHash(name, status);
+        return hashFunction.getHash(name, status);
     }
 
     @Override

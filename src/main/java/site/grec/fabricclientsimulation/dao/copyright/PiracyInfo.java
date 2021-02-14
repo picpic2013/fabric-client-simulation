@@ -1,11 +1,15 @@
 package site.grec.fabricclientsimulation.dao.copyright;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import site.grec.fabricclientsimulation.utils.hash.HashFunction;
+import site.grec.fabricclientsimulation.utils.hash.InnerHashFunction;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 public class PiracyInfo {
+    @Autowired
+    private HashFunction hashFunction;
+
     private String url;
     private String content;
 
@@ -32,7 +36,7 @@ public class PiracyInfo {
 
     @Override
     public int hashCode() {
-        return HashFunction.getHash(getUrl(), getContent());
+        return hashFunction.getHash(getUrl(), getContent());
     }
 
     @Override

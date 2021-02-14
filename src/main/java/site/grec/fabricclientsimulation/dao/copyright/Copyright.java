@@ -1,16 +1,19 @@
 package site.grec.fabricclientsimulation.dao.copyright;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import site.grec.fabricclientsimulation.utils.hash.HashFunction;
+import site.grec.fabricclientsimulation.utils.hash.InnerHashFunction;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 @Data
 public class Copyright {
+    @Autowired
+    private HashFunction hashFunction;
 
-    private String assetID;
+    private byte[] assetID;
     private String authorAddress;
     private Double lockedIncome;
     private CopyrightInfo copyrightInfo;
@@ -20,7 +23,7 @@ public class Copyright {
     private ArrayList<String> quotedMaterials;
     private ArrayList<String> CEK;
 
-    public Copyright(String assetID,
+    public Copyright(byte[] assetID,
                      String authorAddress,
                      Double lockedIncome,
                      CopyrightInfo copyrightInfo,
@@ -42,7 +45,7 @@ public class Copyright {
 
     @Override
     public int hashCode() {
-        return HashFunction.getHash(
+        return hashFunction.getHash(
                 getAssetID(),
                 getAuthorAddress(),
                 getLockedIncome(),
@@ -96,7 +99,7 @@ public class Copyright {
     @Override
     public String toString() {
         return "Copyright{" +
-                "assetID='" + assetID + '\'' +
+                "assetID='" + Arrays.toString(assetID) + '\'' +
                 ", authorAddress='" + authorAddress + '\'' +
                 ", lockedIncome=" + lockedIncome +
                 ", copyrightInfo=" + copyrightInfo +

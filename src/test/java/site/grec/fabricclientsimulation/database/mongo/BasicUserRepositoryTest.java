@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import site.grec.fabricclientsimulation.dao.user.BasicUser;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,7 +22,7 @@ class BasicUserRepositoryTest {
     @Test
     void saveUser() {
         basicUserRepository.saveUser(new BasicUser(
-                "userID",
+                "userID".getBytes(StandardCharsets.UTF_8),
                 100.07,
                 new ArrayList<>(Arrays.asList(
                         "Device1",
@@ -32,31 +33,31 @@ class BasicUserRepositoryTest {
 
     @Test
     void getUserByID() {
-        BasicUser user = basicUserRepository.getUserByID("userID");
+        BasicUser user = basicUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         log.info(user.toString());
     }
 
     @Test
     void getNotExistUser() {
-        BasicUser user = basicUserRepository.getUserByID("Not Exist!");
+        BasicUser user = basicUserRepository.getUserByID("Not Exist!".getBytes(StandardCharsets.UTF_8));
         assertNull(user);
     }
 
     @Test
     void updateUser() {
-        BasicUser user = basicUserRepository.getUserByID("userID");
+        BasicUser user = basicUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         user.getDevices().add("Device3");
 
         basicUserRepository.updateUser(user);
-        user = basicUserRepository.getUserByID("userID");
+        user = basicUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         log.info(user.toString());
     }
 
     @Test
     void deleteByID() {
-        basicUserRepository.deleteByID("userID");
+        basicUserRepository.deleteByID("userID".getBytes(StandardCharsets.UTF_8));
 
-        BasicUser user = basicUserRepository.getUserByID("userID");
+        BasicUser user = basicUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         assertNull(user);
     }
 }

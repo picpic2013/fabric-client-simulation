@@ -21,7 +21,7 @@ public class CopyrightRepository {
         mongoTemplate.save(copyright);
     }
 
-    public Copyright getCopyrightByID(String assetID) {
+    public Copyright getCopyrightByID(byte[] assetID) {
         Query query = new Query(Criteria.where("assetID").is(assetID));
         List<Copyright> copyrights = mongoTemplate.find(query, Copyright.class);
         if (copyrights.size() > 0) {
@@ -45,7 +45,7 @@ public class CopyrightRepository {
         return result.getMatchedCount();
     }
 
-    public void deleteByID(String assetID) {
+    public void deleteByID(byte[] assetID) {
         Query query = new Query(Criteria.where("assetID").is(assetID));
         mongoTemplate.remove(query, Copyright.class);
     }

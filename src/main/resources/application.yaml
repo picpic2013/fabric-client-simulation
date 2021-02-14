@@ -4,3 +4,7 @@ spring:
 #    db.grantRolesToUser("copy", [ { role:"dbOwner", db:"copyright"} ]) ;
     mongodb:
       uri: mongodb://copy:Copy123@org0.g-rec.site:27017/copyright
+
+encrypt:
+  signature:
+    keySize: 1024

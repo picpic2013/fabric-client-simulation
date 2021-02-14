@@ -8,6 +8,7 @@ import site.grec.fabricclientsimulation.dao.copyright.Copyright;
 import site.grec.fabricclientsimulation.dao.copyright.CopyrightInfo;
 import site.grec.fabricclientsimulation.dao.copyright.PiracyInfo;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,7 +23,7 @@ class CopyrightRepositoryTest {
     @Test
     void createObjectTest() {
         Copyright copyright = new Copyright(
-                "123456",
+                "123456".getBytes(StandardCharsets.UTF_8),
                 "789111",
                 0.732,
                 new CopyrightInfo(
@@ -48,7 +49,7 @@ class CopyrightRepositoryTest {
     @Test
     void saveTest() {
         copyrightRepository.saveCopyright(new Copyright(
-                "123456",
+                "123456".getBytes(StandardCharsets.UTF_8),
                 "789111",
                 0.732,
                 new CopyrightInfo(
@@ -72,31 +73,31 @@ class CopyrightRepositoryTest {
     @Test
     void searchTest() {
         log.info(
-                copyrightRepository.getCopyrightByID("123456").toString()
+                copyrightRepository.getCopyrightByID("123456".getBytes(StandardCharsets.UTF_8)).toString()
         );
     }
 
     @Test
     void searchFailTest() {
-        Copyright copyright = copyrightRepository.getCopyrightByID("not exist");
+        Copyright copyright = copyrightRepository.getCopyrightByID("not exist".getBytes(StandardCharsets.UTF_8));
         assertNull(copyright);
     }
 
     @Test
     void updateTest() {
-        Copyright copyright = copyrightRepository.getCopyrightByID("123456");
+        Copyright copyright = copyrightRepository.getCopyrightByID("123456".getBytes(StandardCharsets.UTF_8));
         copyright.getCEK().add("CEK3");
         copyrightRepository.updateCopyright(copyright);
 
-        copyright = copyrightRepository.getCopyrightByID("123456");
+        copyright = copyrightRepository.getCopyrightByID("123456".getBytes(StandardCharsets.UTF_8));
         log.info(copyright.toString());
     }
 
     @Test
     void deleteTest() {
-        copyrightRepository.deleteByID("123456");
+        copyrightRepository.deleteByID("123456".getBytes(StandardCharsets.UTF_8));
 
-        Copyright copyright = copyrightRepository.getCopyrightByID("not exist");
+        Copyright copyright = copyrightRepository.getCopyrightByID("not exist".getBytes(StandardCharsets.UTF_8));
         assertNull(copyright);
     }
 }

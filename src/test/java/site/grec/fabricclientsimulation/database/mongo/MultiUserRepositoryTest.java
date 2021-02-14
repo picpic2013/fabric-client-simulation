@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import site.grec.fabricclientsimulation.dao.user.MultiUser;
 import site.grec.fabricclientsimulation.dao.user.UserProposal;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ class MultiUserRepositoryTest {
     @Test
     void saveUser() {
         multiUserRepository.saveUser(new MultiUser(
-                "userID",
+                "userID".getBytes(StandardCharsets.UTF_8),
                 "Divident description",
                 new ArrayList<>(Arrays.asList(
                         "sub user 1",
@@ -38,19 +39,19 @@ class MultiUserRepositoryTest {
 
     @Test
     void getUserByID() {
-        MultiUser user = multiUserRepository.getUserByID("userID");
+        MultiUser user = multiUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         log.info(user.toString());
     }
 
     @Test
     void getNotExistUser() {
-        MultiUser user = multiUserRepository.getUserByID("Not Exist!");
+        MultiUser user = multiUserRepository.getUserByID("Not Exist!".getBytes(StandardCharsets.UTF_8));
         assertNull(user);
     }
 
     @Test
     void updateUser() {
-        MultiUser user = multiUserRepository.getUserByID("userID");
+        MultiUser user = multiUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         ArrayList<Double> lockedIncome = user.getLockedIncome();
         for (int i = 0; i < lockedIncome.size(); ++i) {
             lockedIncome.set(i, lockedIncome.get(i) + 100);
@@ -70,15 +71,15 @@ class MultiUserRepositoryTest {
         multiUserRepository.updateUser(user);
         log.info(user.toString());
 
-        user = multiUserRepository.getUserByID("userID");
+        user = multiUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         log.info(user.toString());
     }
 
     @Test
     void deleteByID() {
-        multiUserRepository.deleteByID("userID");
+        multiUserRepository.deleteByID("userID".getBytes(StandardCharsets.UTF_8));
 
-        MultiUser user = multiUserRepository.getUserByID("userID");
+        MultiUser user = multiUserRepository.getUserByID("userID".getBytes(StandardCharsets.UTF_8));
         assertNull(user);
     }
 }

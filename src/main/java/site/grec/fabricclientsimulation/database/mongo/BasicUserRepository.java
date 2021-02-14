@@ -20,7 +20,7 @@ public class BasicUserRepository {
         mongoTemplate.save(user);
     }
 
-    public BasicUser getUserByID(String userID) {
+    public BasicUser getUserByID(byte[] userID) {
         Query query = new Query(Criteria.where("userID").is(userID));
         List<BasicUser> users = mongoTemplate.find(query, BasicUser.class);
         if (users.size() > 0) {
@@ -38,7 +38,7 @@ public class BasicUserRepository {
         return result.getMatchedCount();
     }
 
-    public void deleteByID(String userID) {
+    public void deleteByID(byte[] userID) {
         Query query = new Query(Criteria.where("userID").is(userID));
         mongoTemplate.remove(query, BasicUser.class);
     }

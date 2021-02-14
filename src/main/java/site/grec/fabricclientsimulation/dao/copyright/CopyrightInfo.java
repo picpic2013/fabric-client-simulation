@@ -1,12 +1,16 @@
 package site.grec.fabricclientsimulation.dao.copyright;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import site.grec.fabricclientsimulation.utils.hash.HashFunction;
+import site.grec.fabricclientsimulation.utils.hash.InnerHashFunction;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CopyrightInfo {
+    @Autowired
+    private HashFunction hashFunction;
+
     private String description;
     private ArrayList<String> feature;
     private Double price;
@@ -46,7 +50,7 @@ public class CopyrightInfo {
 
     @Override
     public int hashCode() {
-        return HashFunction.getHash(
+        return hashFunction.getHash(
                 getDescription(),
                 getFeature(),
                 getPrice()

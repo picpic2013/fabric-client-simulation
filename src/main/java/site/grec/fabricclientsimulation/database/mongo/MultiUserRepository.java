@@ -20,7 +20,7 @@ public class MultiUserRepository {
         mongoTemplate.save(user);
     }
 
-    public MultiUser getUserByID(String userID) {
+    public MultiUser getUserByID(byte[] userID) {
         Query query = new Query(Criteria.where("userID").is(userID));
         List<MultiUser> users = mongoTemplate.find(query, MultiUser.class);
         if (users.size() > 0) {
@@ -41,7 +41,7 @@ public class MultiUserRepository {
         return result.getMatchedCount();
     }
 
-    public void deleteByID(String userID) {
+    public void deleteByID(byte[] userID) {
         Query query = new Query(Criteria.where("userID").is(userID));
         mongoTemplate.remove(query, MultiUser.class);
     }
